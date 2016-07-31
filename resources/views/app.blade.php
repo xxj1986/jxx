@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +95,7 @@
                         <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> 挂失</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="treeview @if(in_array('statements',$menuCtl)) active @endif">
                     <a href="#">
                         <i class="fa fa-pie-chart"></i>
                         <span>流水管理</span>
@@ -103,10 +104,10 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> 流水录入</a></li>
-                        <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> 技师流水统计</a></li>
-                        <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> 酒水消费</a></li>
-                        <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> 利润分析</a></li>
+                        <li @if(in_array('dayStatements',$menuCtl))class="active"@endif><a href="/admin/statements"><i class="fa fa-circle-o"></i> 流水录入</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 技师流水统计</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 酒水消费</a></li>
+                        <li @if(in_array('projList',$menuCtl))class="active"@endif><a href="/admin/projects"><i class="fa fa-circle-o"></i> 项目管理</a></li>
                     </ul>
                 </li>
                 <li class="treeview @if(in_array('userAndRole',$menuCtl)) active @endif">
@@ -150,6 +151,7 @@
         <strong>Copyright &copy; 2014-2016 <a href="#">金喜轩</a>.</strong> 版权所有
     </footer>
 
+    @if(isset($ctlSidebar))
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
@@ -344,10 +346,15 @@
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
+    @endif
 </div>
 <!-- ./wrapper -->
 <script src="{{url('/lte/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <script src="{{url('/lte/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{url('/lte/plugins/layer/layer.js')}}"></script>
 @yield('pageJs')
+@if(Session::has('message'))
+    <script>$(function(){layer.alert({{session('message')}})})</script>
+@endif
 </body>
 </html>
