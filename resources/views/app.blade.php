@@ -119,7 +119,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li @if(in_array('userList',$menuCtl))class="active"@endif><a href="/admin/users"><i class="fa fa-circle-o"></i> 帐号管理</a></li>
-                        <li @if(in_array('roleList',$menuCtl))class="active"@endif><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                        <li @if(in_array('roleList',$menuCtl))class="active"@endif><a href="/admin/roles"><i class="fa fa-circle-o"></i> 角色管理</a></li>
                         <li @if(in_array('prevList',$menuCtl))class="active"@endif><a href="#"><i class="fa fa-circle-o"></i> 权限管理</a></li>
                     </ul>
                 </li>

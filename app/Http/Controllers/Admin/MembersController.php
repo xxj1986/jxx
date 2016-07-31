@@ -52,6 +52,7 @@ class MembersController extends Controller
             $record = compact('mobile','balance');
             $record['recharged'] = $balance;
             $record['remark'] = '新开会员充值';
+            $record['created_at'] = date('Y-m-d H:i:s');
             DB::table('cash_records')->insert($record);
         }
         $msg = $res ? '添加成功' : '添加失败';
@@ -109,7 +110,10 @@ class MembersController extends Controller
         $remark = trim($request->get('remark'));
         $oneInfo = DB::table('members')->where('id',$id)->first();
         $data = [];
-        $record = ['mobile' => $oneInfo->mobile];
+        $record = [
+            'mobile' => $oneInfo->mobile,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
         if($type == 1){
             if($oneInfo->balance < $money) return back()->with('message',"账户余额【{$oneInfo->balance}】不足抵扣消费金额【$money】");
             $data['consumed_total'] = $oneInfo->consumed_total + $money;

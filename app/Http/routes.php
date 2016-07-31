@@ -30,4 +30,6 @@ Route::group(['middleware' => 'auth','namespace'=>'Admin','prefix'=>'admin'], fu
     Route::resource('users','UsersController');
     //会员卡管理
     Route::resource('members','MembersController');
+    //角色管理
+    Route::resource('roles','RolesController');
 });
