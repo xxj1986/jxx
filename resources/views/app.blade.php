@@ -355,11 +355,8 @@
 <script src="{{url('/lte/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <script src="{{url('/lte/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{url('/lte/plugins/layer/layer.js')}}"></script>
+@yield('extJs')
 @yield('pageJs')
-<script>
-    function directCharge(){$('#directChargeModal').modal()};
-    function directConsume(){$('#directConsumeModal').modal()};
-</script>
 @if(Session::has('message'))
     <script>$(function(){layer.alert({{session('message')}})})</script>
 @endif

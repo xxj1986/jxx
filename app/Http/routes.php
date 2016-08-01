@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth','namespace'=>'Admin','prefix'=>'admin'], fu
     //用户管理
     Route::resource('users','UsersController');
     //会员卡管理
+    Route::get('members/checkMember/{mobile}','MembersController@checkMember');
     Route::resource('members','MembersController');
     //角色管理
     Route::resource('roles','RolesController');

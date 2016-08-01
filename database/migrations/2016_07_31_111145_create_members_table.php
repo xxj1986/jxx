@@ -19,6 +19,7 @@ class CreateMembersTable extends Migration
             $table->decimal('balance');
             $table->decimal('recharged_total');
             $table->decimal('consumed_total');
+            $table->tinyInteger('frozen');
             $table->timestamps();
             $table->index(['mobile','card_num']);
         });

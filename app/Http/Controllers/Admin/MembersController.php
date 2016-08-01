@@ -140,4 +140,14 @@ class MembersController extends Controller
     {
         //
     }
+
+    public function checkMember($mobile){
+        $oneInfo = DB::table('members')->where('mobile',$mobile)->where('frozen','!=',1)->first();
+        if($oneInfo){
+            $data = ['errCode'=>0,'data'=>$oneInfo];
+        }else{
+            $data = ['errCode'=>1,'data'=>[]];
+        }
+        return response()->json($data);
+    }
 }
