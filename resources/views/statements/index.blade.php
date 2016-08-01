@@ -9,7 +9,7 @@
                 <div class="box-header">单日流水记录</h3>
                     <form id="searchForm" method="GET" class="form-inline pull-right">
                         日期
-                        <input type="text" name="mobile" value="{{$params['date'] or ''}}" onchange="startSearch();" class="form-control" placeholder="手机号">
+                        <input type="text" name="date" size="9" value="{{$params['date'] or ''}}" onchange="startSearch();" class="form-control" placeholder="手机号">
                         模式
                         <select name="mode" class="form-control" onchange="startSearch();">
                             <option value="view" @if(isset($params['mode']) && $params['mode'] == 'view') selected @endif>浏览模式</option>

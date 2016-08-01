@@ -90,9 +90,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> 消费记录</a></li>
-                        <li><a href="/admin/members"><i class="fa fa-circle-o"></i> 会员卡列表</a></li>
-                        <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> 挂失</a></li>
+                        <li @if(in_array('records',$menuCtl))class="active"@endif><a href="/admin/members/records"><i class="fa fa-circle-o"></i> 消费记录</a></li>
+                        <li @if(in_array('memberList',$menuCtl))class="active"@endif><a href="/admin/members"><i class="fa fa-circle-o"></i> 会员卡列表</a></li>
+                        <li><a href="javascript:frozeMember();"><i class="fa fa-circle-o"></i> 挂失</a></li>
                     </ul>
                 </li>
                 <li class="treeview @if(in_array('statements',$menuCtl)) active @endif">
@@ -358,7 +358,7 @@
 @yield('extJs')
 @yield('pageJs')
 @if(Session::has('message'))
-    <script>$(function(){layer.alert({{session('message')}})})</script>
+    <script>$(function(){layer.msg("{{session('message')}}")})</script>
 @endif
 </body>
 </html>

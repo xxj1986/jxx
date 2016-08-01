@@ -18,7 +18,7 @@
                             <th>角色名称</th>
                             <th>权限</th>
                             <th>备注</th>
-                            <th><a href="javascript:addRole();">添加</a></th>
+                            <th><a href="javascript:addRole();">新增</a></th>
                         </tr>
                         </thead>
                         <tbody>

@@ -44,7 +44,7 @@ class MembersController extends Controller
             return back()->with('message','请填写正确手机号');
         }
         $balance = $recharged_total = floatval($request->get('money'));
-        $card_num = intval($request->get('card_num'));
+        $card_num = trim($request->get('card_num'));
         $created_at = date('Y-m-d H:i:s');
         $data = compact('mobile','balance','recharged_total','card_num','created_at');
         $res = DB::table('members')->insert($data);
@@ -109,7 +109,7 @@ class MembersController extends Controller
         }
         $remark = trim($request->get('remark'));
         $oneInfo = DB::table('members')->where('id',$id)->first();
-        $data = [];
+        $data = ['updated_at'=>date('Y-m-d H:i:s')];
         $record = [
             'mobile' => $oneInfo->mobile,
             'created_at' => date('Y-m-d H:i:s')
@@ -144,10 +144,39 @@ class MembersController extends Controller
     public function checkMember($mobile){
         $oneInfo = DB::table('members')->where('mobile',$mobile)->where('frozen','!=',1)->first();
         if($oneInfo){
-            $data = ['errCode'=>0,'data'=>$oneInfo];
+            if($oneInfo->frozen == 1){
+                $data = ['errCode'=>2,'errMsg'=>'该账户被冻结','data'=>$oneInfo];
+            }else{
+                $data = ['errCode'=>0,'data'=>$oneInfo];
+            }
         }else{
-            $data = ['errCode'=>1,'data'=>[]];
+            $data = ['errCode'=>1,'errMsg'=>'账户不存在','data'=>[]];
         }
         return response()->json($data);
+    }
+
+    /*
+     * 会员卡消费记录
+     */
+    public function showRecords(Request $request){
+
+        $date = $request->get('date');
+        $type = $request->get('type');
+        $params = ['date'=>'','type'=>''];
+
+        $query = DB::table('cash_records');
+        if($date){
+            $params['date'] = date('Y-m-d 10:00:00',strtotime($date));
+            $query = $query->where('created_at','>=',$params['date'])
+                ->where('created_at','<',date('Y-m-d',strtotime($params['date'])+86400));
+        }
+        if(in_array($type,[1,2])){
+            $params['type'] = $type;
+            if($type == 1) $field = 'consumed';
+            else $field = 'recharged';
+            $query = $query->where($field,'>',0);
+        }
+        $records = $query->orderBy('id','DESC')->paginate();
+        return view('members.records',compact('records','params'));
     }
 }

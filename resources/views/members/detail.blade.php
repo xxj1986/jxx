@@ -14,7 +14,7 @@
                         至
                         <input type="text" name="endTime" size="11" value="{{$params['endTime'] or ''}}" class="form-control" placeholder="结束日期">
                         状态
-                        <select name="froze" class="form-control">
+                        <select name="type" class="form-control">
                             <option value="">不限</option>
                             <option value="1" @if(isset($params['type']) && $params['type'] == '1') selected @endif>消费</option>
                             <option value="2" @if(isset($params['type']) && $params['type'] == '2') selected @endif>充值</option>

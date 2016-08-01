@@ -1,5 +1,5 @@
 @extends('app')
-        <?php $menuCtl = ['memberManage','memberList'] ?>
+        <?php $menuCtl = ['memberManage','records'] ?>
 
 @section('mainContents')
         <!-- Main content -->
@@ -8,15 +8,15 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">会员卡列表</h3>
+                    <h3 class="box-title">会员卡消费记录</h3>
                     <form method="GET" class="form-inline pull-right">
-                        手机号
-                        <input type="text" name="mobile" value="{{$params['mobile'] or ''}}" class="form-control" placeholder="手机号">
-                        状态
-                        <select name="froze" class="form-control">
+                        日期
+                        <input type="text" name="date" value="{{$params['date'] or ''}}" class="form-control" placeholder="日期">
+                        类型
+                        <select name="type" class="form-control">
                             <option value="">不限</option>
-                            <option value="0" @if(isset($params['froze']) && $params['froze'] == '0') selected @endif>正常</option>
-                            <option value="1" @if(isset($params['froze']) && $params['froze'] == '1') selected @endif>挂失</option>
+                            <option value="1" @if(isset($params['type']) && $params['type'] == '1') selected @endif>消费</option>
+                            <option value="2" @if(isset($params['type']) && $params['type'] == '2') selected @endif>充值</option>
                         </select>
                         <button type="submit" class="btn btn-warning">搜索</button>
                     </form>
@@ -26,36 +26,29 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>单号</th>
                             <th>手机号</th>
-                            <th>会员卡号</th>
-                            <th>余额</th>
-                            <th>总充值金额</th>
-                            <th>总消费金额</th>
-                            <th>最后操作</th>
-                            <th>加入时间</th>
-                            <th><a href="javascript:addMember();">新开</a></th>
+                            <th>账户余额</th>
+                            <th>充值金额</th>
+                            <th>消费金额</th>
+                            <th>内容</th>
+                            <th>发生时间</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($members as $one)
-                        <tr>
-                            <td>{{$one->id}}</td>
-                            <td>{{$one->mobile}}</td>
-                            <td>{{$one->card_num}}</td>
-                            <td>{{$one->balance}}</td>
-                            <td>{{$one->recharged_total}}</td>
-                            <td>{{$one->consumed_total}}</td>
-                            <td>{{$one->updated_at}}</td>
-                            <td>{{$one->created_at}}</td>
-                            <td>
-                                <a href="/admin/members/{{$one->id}}">详情</a>
-                                <a href="javascript:;" class="chargeBtn">充值</a>
-                            </td>
-                        </tr>
+                        @foreach($records as $one)
+                            <tr>
+                                <td>{{$one->id}}</td>
+                                <td>{{$one->mobile}}</td>
+                                <td>{{$one->balance}}</td>
+                                <td>{{$one->recharged}}</td>
+                                <td>{{$one->consumed}}</td>
+                                <td>{{$one->remark}}</td>
+                                <td>{{$one->created_at}}</td>
+                            </tr>
                         @endforeach
                     </table>
-                    {!! $members->appends($params)->render() !!}
+                    {!! $records->appends($params)->render() !!}
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -136,7 +129,7 @@
                             <label for="input2" class="col-sm-3 control-label">充值金额</label>
 
                             <div class="col-sm-7">
-                                <input type="text" name="money" class="form-control" id="input2" onkeypress="return skipEnter();" placeholder="请输入金额">
+                                <input type="text" name="money" class="form-control" id="input2" placeholder="请输入金额">
                             </div>
                         </div>
                     </div>
