@@ -64,31 +64,81 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">新开会员卡</h4>
+                <h4 class="modal-title">上钟记录录入</h4>
             </div>
             <form method="POST" class="form-horizontal">
                 {!! csrf_field() !!}
             <div class="modal-body">
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="input1" class="col-sm-3 control-label">手机号</label>
-
-                            <div class="col-sm-7">
-                                <input type="text" name="mobile" class="form-control" id="input1" placeholder="请输入手机号">
+                            <label for="tech_num" class="col-sm-2 control-label">技师</label>
+                            <div class="col-sm-8">
+                                <select name="tech_num" id="tech_num"  class="form-control">
+                                    <option value="0">请选择</option>
+                                    @foreach($techs as $v)
+                                        <option value="{{$v}}">{{$v}}号</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input2" class="col-sm-3 control-label">充值金额</label>
-
-                            <div class="col-sm-7">
-                                <input type="text" name="money" class="form-control" id="input2" placeholder="请输入金额">
+                            <label for="price" class="col-sm-2 control-label">金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="price" class="form-control" id="price" placeholder="请输入消费金额">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input3" class="col-sm-3 control-label">卡号</label>
-
-                            <div class="col-sm-7">
-                                <input type="text" name="card_num" class="form-control" id="input3" placeholder="请刷卡">
+                            <label for="proj_select" class="col-sm-2 control-label">项目</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="proj_name" class="form-control" id="proj_name" placeholder="请输入项目">
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="proj_select"  class="form-control">
+                                    <option value="0">请选择</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="extra" class="col-sm-2 control-label">额外消费</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="extra" class="form-control" id="extra" placeholder="烟酒消费金额，没有则不填">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proj_select" class="col-sm-2 control-label">上钟时间</label>
+                            <div class="col-sm-4">
+                                <select name="hour" class="form-control">
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="12">12点</option>
+                                    <option value="13">13点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                    <option value="19">19点</option>
+                                    <option value="20">20点</option>
+                                    <option value="21">21点</option>
+                                    <option value="22">22点</option>
+                                    <option value="23">23点</option>
+                                    <option value="24">24点</option>
+                                    <option value="01">01点</option>
+                                    <option value="02">02点</option>
+                                    <option value="03">03点</option>
+                                    <option value="04">04点</option>
+                                    <option value="05">05点</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <select name="minute" class="form-control">
+                                    <option value="00">00分</option><option value="05">05分</option>
+                                    <option value="10">10分</option><option value="15">15分</option>
+                                    <option value="20">20分</option><option value="25">25分</option>
+                                    <option value="30">30分</option><option value="35">35分</option>
+                                    <option value="40">40分</option><option value="45">45分</option>
+                                    <option value="50">50分</option><option value="55">55分</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -97,46 +147,6 @@
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
                 <button type="submit" class="btn btn-primary">保存</button>
             </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div id="chargeModal" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">会员充值</h4>
-            </div>
-            <form id="chargeForm" method="POST" class="form-horizontal">
-                {!! csrf_field() !!}
-                <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="type" value="2">
-                <div class="modal-body">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <label for="input1" class="col-sm-3 control-label">手机号</label>
-
-                            <div class="col-sm-7">
-                                <input type="text" name="mobile" class="form-control" id="mobile" readonly placeholder="请输入手机号">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input2" class="col-sm-3 control-label">充值金额</label>
-
-                            <div class="col-sm-7">
-                                <input type="text" name="money" class="form-control" id="input2" placeholder="请输入金额">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
-                    <button type="submit" class="btn btn-primary">保存</button>
-                </div>
             </form>
         </div>
         <!-- /.modal-content -->

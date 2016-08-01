@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     protected $redirectPath = '/admin/dashboard';
     //登录名称
-    protected $username = 'name';
+    protected $username = 'mobile';
 
     protected $redirectAfterLogout = '/auth/login';
     /*
@@ -47,8 +47,7 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'mobile' => 'required|max:11|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -62,8 +61,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'mobile' => $data['mobile'],
             'password' => bcrypt($data['password']),
         ]);
     }

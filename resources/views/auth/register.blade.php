@@ -12,11 +12,7 @@
             <form method="post">
                 {!! csrf_field() !!}
                 <div class="form-group has-feedback">
-                    <input type="text" name="name" value="{{old('name')}}" class="form-control" placeholder="用户名">
-                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                </div>
-                <div class="form-group has-feedback">
-                    <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Email">
+                    <input type="text" name="mobile" value="{{old('mobile')}}" class="form-control" placeholder="手机号">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">

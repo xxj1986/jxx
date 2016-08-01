@@ -19,7 +19,7 @@
         <form action="{{url('/auth/login')}}" method="post">
             {!! csrf_field() !!}
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="name" value="{{old('name')}}" placeholder="用户名">
+                <input type="text" class="form-control" name="mobile" value="{{old('mobile')}}" placeholder="手机号">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

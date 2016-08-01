@@ -44,7 +44,7 @@
                                 <img src="{{url('/lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    {{$auth->name.' - '.$auth->role}}
+                                    {{$auth->mobile .' - '. $auth->role}}
                                     <small>加入时间 - {{substr($auth->created_at,0,10)}}</small>
                                 </p>
                             </li>

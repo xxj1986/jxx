@@ -15,7 +15,7 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th>用户名</th>
+                            <th>编号</th>
                             <th>手机号</th>
                             <th>角色</th>
                             <th>编号</th>
@@ -26,10 +26,10 @@
                         <tbody>
                         @foreach($users as $one)
                         <tr>
-                            <td>{{$one->name}}</td>
-                            <td>{{$one->mobile or ''}}</td>
+                            <td>{{$one->id}}</td>
+                            <td>{{$one->mobile}}</td>
                             <td>{{$one->role}}</td>
-                            <td>{{$one->tec_num or ''}}</td>
+                            <td>{{$one->tech_num}}</td>
                             <td>{{$one->created_at}}</td>
                             <td>{{$one->created_at}}</td>
                         </tr>
