@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
-    protected $redirectPath = '/admin/dashboard';
+    protected $redirectPath = '/home';
     //登录名称
     protected $username = 'mobile';
 

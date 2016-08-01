@@ -23,6 +23,9 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+Route::group(['middleware' => 'auth','namespace'=>'Home','prefix'=>'home'], function () {
+    Route::get('/', 'HomeController@index');
+});
 
 Route::group(['middleware' => 'auth','namespace'=>'Admin','prefix'=>'admin'], function () {
     Route::get('dashboard','DashboardController@index');
