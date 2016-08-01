@@ -23,14 +23,14 @@ class StatementsController extends Controller
             $date = substr($last->service_time,0,10);
             $start = $date.' 10:00';
             $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
-            $query = DB::table('statements')->where('service_time','between',[$start,$end]);
+            $query = DB::table('statements')->where('service_time','>=',$start)->where('service_time','<=',$end);
             if($mode == 'record'){
-                $statements = $query->orderBy('service_time','DESC')->get(8);
+                $statements = $query->orderBy('service_time','DESC')->limit(8)->get();
             }else{
                 $statements = $query->get();
             }
-            $statements = $statements->keyBy('service_time');
-            sort($statements);
+//            $statements = $statements->keyBy('service_time');
+//            sort($statements);
         }else{
             $date = Date('Y-m-d');
             $statements = [];
@@ -43,9 +43,7 @@ class StatementsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     *  no use
      */
     public function create()
     {
@@ -53,14 +51,14 @@ class StatementsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * 上钟记录存储
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->getInputs($request->input());
+        $res = DB::table('statements')->insert($data);
+        $msg = $res ? '保存成功' : '保存失败' ;
+        return back()->withInput()->with('message',$msg);
     }
 
     /**
@@ -86,25 +84,38 @@ class StatementsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 更改存储
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $this->getInputs($request->input());
+        $res = DB::table('statements')->where('id',$id)->update($data);
+        $msg = $res ? '更改成功' : '更改失败' ;
+        return back()->withInput()->with('message',$msg);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * 删除
      */
     public function destroy($id)
     {
-        //
+        $res = DB::table('statements')->where('id',$id)->delete();
+        $msg = $res ? '删除成功' : '删除失败' ;
+        return back()->with('message',$msg);
+    }
+
+    public function getInputs($params){
+
+        $tech_num =  intval($params['tech_num']);
+        $price = floatval($params['price']);
+        if($tech_num <= 0 || $price <=0){
+            return back()->with('message','技师号和价格必填');
+        }
+        $extra = floatval($params['extra']);
+        $proj_name = trim($params['proj_name']);
+        $service_time = $params['date'].' '.$params['hour'].':'.$params['minute'].':00';
+        $remark = trim($params['remark']);
+        $data = compact('tech_num','price','proj_name','extra','service_time','remark');
+        return $data;
     }
 }

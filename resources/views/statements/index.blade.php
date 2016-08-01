@@ -19,7 +19,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped">
+                    <table id="statementsTable" class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -43,7 +43,10 @@
                             <td>{{$one->service_time}}</td>
                             <td>{{$one->remark}}</td>
                             <td>
-                                <a href="/admin/statements/{{$one->id}}">更改</a>
+                                <a href="#" class="copyBtn">复制</a>
+                                <a href="#" class="editBtn">更改</a>
+                                <a href="#" class="delBtn">删除</a>
+
                             </td>
                         </tr>
                         @endforeach
@@ -64,10 +67,11 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">上钟记录录入</h4>
+                <h4 class="modal-title"><span id="actionName">新增</span>上钟记录</h4>
             </div>
-            <form method="POST" class="form-horizontal">
+            <form id="postForm" method="POST" class="form-horizontal">
                 {!! csrf_field() !!}
+                <input type="hidden" name="date" value="{{$params['date']}}">
             <div class="modal-body">
                     <div class="box-body">
                         <div class="form-group">
@@ -107,7 +111,7 @@
                         <div class="form-group">
                             <label for="proj_select" class="col-sm-2 control-label">上钟时间</label>
                             <div class="col-sm-4">
-                                <select name="hour" class="form-control">
+                                <select name="hour" id="hour" class="form-control">
                                     <option value="10">10点</option>
                                     <option value="11">11点</option>
                                     <option value="12">12点</option>
@@ -131,7 +135,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4">
-                                <select name="minute" class="form-control">
+                                <select name="minute" id="minute" class="form-control">
                                     <option value="00">00分</option><option value="05">05分</option>
                                     <option value="10">10分</option><option value="15">15分</option>
                                     <option value="20">20分</option><option value="25">25分</option>
@@ -139,6 +143,12 @@
                                     <option value="40">40分</option><option value="45">45分</option>
                                     <option value="50">50分</option><option value="55">55分</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remark" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="remark" class="form-control" id="remark" placeholder="备注信息">
                             </div>
                         </div>
                     </div>
@@ -158,16 +168,43 @@
 @section('pageJs')
 <script src="{{url('/lte/dist/js/app.min.js')}}"></script>
 <script>
-    $(function(){
-        var tr = '';
-        $('.chargeBtn').click(function(){
+    $(function () {
+        var tr = '',cls = '';
+        $("#statementsTable").on('click','.copyBtn,.editBtn',function(){
+            cls = $(this).attr('class');
+            tr  = $(this).closest('tr');
+            $("#postForm [name='_method']").remove();
+            if(cls == 'editBtn'){
+                $('#actionName').text('更改');
+                $('#postForm').attr('action','/admin/statements/'+(tr.children().eq(0).text()).trim() );
+                $('#postForm').append('<input type="hidden" name="_method" value="PUT">');
+            }else{
+                $('#actionName').text('复制');
+                $('#postForm').attr('action','/admin/statements');
+            }
+            $('#tech_num').val((tr.children().eq(1).text()).trim());
+            $('#price').val((tr.children().eq(2).text()).trim());
+            $('#proj_name').val((tr.children().eq(3).text()).trim());
+            $('#extra').val((tr.children().eq(4).text()).trim());
+            $('#hour').val((tr.children().eq(5).text()).substr(11,2));
+            $('#minute').val((tr.children().eq(5).text()).substr(14,2));
+            $('#remark').val((tr.children().eq(6).text()).trim());
+            $('#addModal').modal();
+        });
+        $("#statementsTable").on('click','.delBtn',function(){
             tr = $(this).closest('tr');
-            $('#chargeForm').attr('action','/admin/members/' + (tr.children().eq(0).text()).trim() );
-            $('#mobile').val( (tr.children().eq(1).text()).trim() );
-            $('#chargeModal').modal();
+            layer.confirm('您确定要删除这个项目吗？',function(){
+                $('#postForm').attr('action','/admin/statements/'+(tr.children().eq(0).text()).trim() );
+                $("#postForm [name='_method']").remove();
+                $('#postForm').append('<input type="hidden" name="_method" value="DELETE">');
+                $('#postForm').submit();
+            });
         });
     });
-    function addStatement(){$('#addModal').modal()}
+    function addStatement(){
+        $('#actionName').text('新增');
+        $('#addModal').modal();
+    }
     function startSearch(){$('#searchForm').submit()}
 </script>
 @endsection

@@ -125,9 +125,9 @@
                     </ul>
                 </li>
                 <li class="header">快捷入口</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>上钟表录入</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>会员消费</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>会员充值</span></a></li>
+                <li><a href="/admin/statements?mode=record"><i class="fa fa-circle-o text-red"></i> <span>上钟表录入</span></a></li>
+                <li><a href="javascript:directConsume();"><i class="fa fa-circle-o text-yellow"></i> <span>会员消费</span></a></li>
+                <li><a href="javascript:directCharge();"><i class="fa fa-circle-o text-aqua"></i> <span>会员充值</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -348,11 +348,18 @@
     <div class="control-sidebar-bg"></div>
     @endif
 </div>
+
+@include('ext')
+
 <!-- ./wrapper -->
 <script src="{{url('/lte/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <script src="{{url('/lte/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{url('/lte/plugins/layer/layer.js')}}"></script>
 @yield('pageJs')
+<script>
+    function directCharge(){$('#directChargeModal').modal()};
+    function directConsume(){$('#directConsumeModal').modal()};
+</script>
 @if(Session::has('message'))
     <script>$(function(){layer.alert({{session('message')}})})</script>
 @endif
