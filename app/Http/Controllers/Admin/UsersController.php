@@ -71,7 +71,12 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tech_num = intval($request->get('tech_num'));
+        $role = trim($request->get('role'));
+        $data = compact('tech_num','role');
+        $res =DB::table('users')->where('id',$id)->update($data);
+        $msg = $res ? '更改成功' : '更改失败';
+        return back()->with('message',$msg);
     }
 
     /**

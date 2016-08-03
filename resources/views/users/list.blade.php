@@ -21,6 +21,7 @@
                             <th>编号</th>
                             <th>最后登录</th>
                             <th>注册</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,9 @@
                             <td>{{$one->tech_num}}</td>
                             <td>{{$one->created_at}}</td>
                             <td>{{$one->created_at}}</td>
+                            <td>
+                                <a href="#" class="editBtn">编辑</a>
+                            </td>
                         </tr>
                         @endforeach
                     </table>
@@ -45,6 +49,45 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
+<div id="editModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">用户信息编辑</h4>
+            </div>
+            <form id="postForm" method="POST" class="form-horizontal">
+                {!! csrf_field() !!}
+                <input type="hidden" name="_method" value="PUT">
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="input1" class="col-sm-3 control-label">技师号</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" name="tech_num" class="form-control" id="input1" placeholder="请输入技师号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input2" class="col-sm-3 control-label">角色</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" name="role" class="form-control" id="input2" placeholder="请输入角色">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @endsection
 
 @section('pageJs')
@@ -58,5 +101,13 @@
 <!-- AdminLTE App -->
 <script src="{{url('/lte/dist/js/app.min.js')}}"></script>
 <!-- page script -->
-<script>$(function () {$("#example1").DataTable()});</script>
+<script>$(function () {$("#example1").DataTable()});
+    $("#example1").on('click','.editBtn',function(){
+        tr = $(this).closest('tr');
+        $('#postForm').attr('action','/admin/users/'+(tr.children().eq(0).text()).trim() );
+        $('#input1').val((tr.children().eq(3).text()).trim());
+        $('#input2').val((tr.children().eq(2).text()).trim());
+        $('#editModal').modal();
+    });
+</script>
 @endsection
