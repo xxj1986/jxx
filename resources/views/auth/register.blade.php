@@ -3,7 +3,7 @@
 @section('mainContents')
     <div class="register-box">
         <div class="register-logo">
-            <a href="#"><b>金喜轩</b>管理系统</a>
+            <a href="#"><b>金禧轩</b>管理系统</a>
         </div>
 
         <div class="register-box-body">
