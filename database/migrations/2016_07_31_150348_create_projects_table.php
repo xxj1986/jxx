@@ -16,7 +16,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->string('proj_name',15)->unique()->index();
             $table->decimal('price')->index();
-            $table->tinyInteger('time_spec',5);
+            $table->mediumInteger('time_spec');
             $table->string('remark', 120);
         });
     }

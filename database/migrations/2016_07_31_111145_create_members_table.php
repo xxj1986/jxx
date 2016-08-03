@@ -14,14 +14,13 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mobile',15)->uneque();
-            $table->string('card_num',15);
+            $table->string('mobile',15)->uneque()->index();
+            $table->string('card_num',15)->index();
             $table->decimal('balance');
             $table->decimal('recharged_total');
             $table->decimal('consumed_total');
             $table->tinyInteger('frozen');
             $table->timestamps();
-            $table->index(['mobile','card_num']);
         });
     }
 
