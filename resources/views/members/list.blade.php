@@ -18,7 +18,7 @@
                             <option value="0" @if(isset($params['froze']) && $params['froze'] == '0') selected @endif>正常</option>
                             <option value="1" @if(isset($params['froze']) && $params['froze'] == '1') selected @endif>挂失</option>
                         </select>
-                        <button type="submit" class="btn btn-warning">搜索</button>
+                        <button type="submit" class="btn btn-primary">搜索</button>
                     </form>
                 </div>
                 <!-- /.box-header -->

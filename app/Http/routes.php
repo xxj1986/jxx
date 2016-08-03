@@ -40,5 +40,7 @@ Route::group(['middleware' => 'auth','namespace'=>'Admin','prefix'=>'admin'], fu
     //项目管理
     Route::resource('projects','ProjectsController');
     //流水管理
+    Route::get('statements/daily','StatementsController@daily');
     Route::resource('statements','StatementsController');
+
 });

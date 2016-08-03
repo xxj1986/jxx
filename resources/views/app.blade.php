@@ -104,8 +104,8 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(in_array('dayStatements',$menuCtl))class="active"@endif><a href="/admin/statements"><i class="fa fa-circle-o"></i> 流水录入</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> 技师流水统计</a></li>
+                        <li @if(in_array('dayStatements',$menuCtl))class="active"@endif><a href="/admin/statements/daily"><i class="fa fa-circle-o"></i> 流水录入</a></li>
+                        <li @if(in_array('techStatements',$menuCtl))class="active"@endif><a href="/admin/statements"><i class="fa fa-circle-o"></i> 技师流水统计</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 酒水消费</a></li>
                         <li @if(in_array('projList',$menuCtl))class="active"@endif><a href="/admin/projects"><i class="fa fa-circle-o"></i> 项目管理</a></li>
                     </ul>
@@ -125,7 +125,7 @@
                     </ul>
                 </li>
                 <li class="header">快捷入口</li>
-                <li><a href="/admin/statements?mode=record"><i class="fa fa-circle-o text-red"></i> <span>上钟表录入</span></a></li>
+                <li><a href="/admin/statements/daily?mode=record"><i class="fa fa-circle-o text-red"></i> <span>上钟表录入</span></a></li>
                 <li><a href="javascript:directConsume();"><i class="fa fa-circle-o text-yellow"></i> <span>会员消费</span></a></li>
                 <li><a href="javascript:directCharge();"><i class="fa fa-circle-o text-aqua"></i> <span>会员充值</span></a></li>
             </ul>

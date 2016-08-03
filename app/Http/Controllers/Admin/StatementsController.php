@@ -10,10 +10,33 @@ use App\Http\Controllers\Controller;
 class StatementsController extends Controller
 {
     /**
-     * 日流水查看
+     *
      */
     public function index(Request $request)
     {
+        $last = DB::table('statements')->orderBy('service_time','DESC')->first();
+        if($last){
+//            $date = substr($last->service_time,0,10);
+//            $start = $date.' 10:00';
+//            $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
+            $query = DB::table('statements')->select('tech_num', DB::raw('SUM(price) as total_sales, COUNT(id) as total_num'));
+            $statements =  $query->groupBy('tech_num')->paginate(20);
+            $statements = $statements->keyBy('tech_num');
+        }else{
+            $date = Date('Y-m-d');
+            $statements = [];
+        }
+
+        $techs = DB::table('users')->where('role','技师')->get();
+
+        return view('statements.month',compact('statements','techs'));
+
+    }
+
+    /*
+     * 日流水查看
+     */
+    public function daily(Request $request){
         $mode = $request->get('mode');
         if(!in_array($mode,['view','record'])){
             $mode = 'view';
@@ -39,7 +62,6 @@ class StatementsController extends Controller
         $techs  =  DB::table('users')->where('role','技师')->lists('tech_num');
 
         return view('statements.index',compact('params','statements','techs'));
-
     }
 
     /**
@@ -47,7 +69,7 @@ class StatementsController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

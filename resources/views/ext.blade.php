@@ -105,18 +105,17 @@
                     <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">会员挂失</h4>
             </div>
-            <form method="POST" action="/admin/members" class="form-inline">
+            <form method="POST" action="/admin/members" class="form-horizontal">
                 {!! csrf_field() !!}
                 <input type="hidden" name="_method" value="DELETE">
 
                 <div class="modal-body">
                     <div class="box-body">
                         <div class="form-group">
-                            请输入 手机号
-                            <input type="text" name="mobile" size="15" class="form-control" onblur="checkMember(this);" placeholder="请输入手机号">
-                            或卡号
-                            <input type="text" name="mobile" size="15" class="form-control" onblur="checkMember(this);" placeholder="请刷卡">
-                            挂失
+                            <label class="col-sm-3 control-label">手机号</label>
+                            <div class="col-sm-7">
+                                <input type="text" name="mobile" class="form-control" onblur="checkMember(this);" placeholder="请输入手机号">
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-3"></div>

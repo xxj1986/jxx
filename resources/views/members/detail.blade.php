@@ -19,7 +19,7 @@
                             <option value="1" @if(isset($params['type']) && $params['type'] == '1') selected @endif>消费</option>
                             <option value="2" @if(isset($params['type']) && $params['type'] == '2') selected @endif>充值</option>
                         </select>
-                        <button type="submit" class="btn btn-warning">搜索</button>
+                        <button type="submit" class="btn btn-primary">搜索</button>
                     </form>
                 </div>
                 <!-- /.box-header -->
