@@ -13,6 +13,10 @@
         <p class="login-box-msg">请登录后开始使用</p>
         <div class="bg-warning">
             @if(Session::has('message'))
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-warning"></i>用户名或密码错误!</h4>
+                </div>
                 {{Session::get('message')}}
             @endif
         </div>
@@ -20,7 +24,7 @@
             {!! csrf_field() !!}
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" name="mobile" value="{{old('mobile')}}" placeholder="手机号">
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
                 <input type="password" class="form-control" name="password" placeholder="密码">

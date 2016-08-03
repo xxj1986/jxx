@@ -166,9 +166,10 @@ class MembersController extends Controller
 
         $query = DB::table('cash_records');
         if($date){
-            $params['date'] = date('Y-m-d 10:00:00',strtotime($date));
-            $query = $query->where('created_at','>=',$params['date'])
-                ->where('created_at','<',date('Y-m-d',strtotime($params['date'])+86400));
+            $params['date'] = date('Y-m-d',strtotime($date));
+            $stime = $params['date'].' 10:00:00';
+            $query = $query->where('created_at','>=',$stime)
+                ->where('created_at','<',date('Y-m-d H:i:s',strtotime($stime)+86400));
         }
         if(in_array($type,[1,2])){
             $params['type'] = $type;

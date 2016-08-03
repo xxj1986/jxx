@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{url('/lte/fonts/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{url('/lte/dist/css/AdminLTE.min.css')}}">
     <link rel="stylesheet" href="{{url('/lte/dist/css/skins/_all-skins.min.css')}}">
+    <script src="{{url('/lte/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
     @yield('pageCss')
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -352,7 +353,6 @@
 @include('ext')
 
 <!-- ./wrapper -->
-<script src="{{url('/lte/plugins/jQuery/jquery-2.2.3.min.js')}}"></script>
 <script src="{{url('/lte/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{url('/lte/plugins/layer/layer.js')}}"></script>
 @yield('extJs')

@@ -11,14 +11,21 @@
                     <h3 class="box-title">会员卡消费记录</h3>
                     <form method="GET" class="form-inline pull-right">
                         日期
-                        <input type="text" name="date" value="{{$params['date'] or ''}}" class="form-control" placeholder="日期">
-                        类型
-                        <select name="type" class="form-control">
+                        <button onclick="return changeDay(-1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <div class="input-group">
+                            <input id="inputDate" type="text" name="date" value="{{$params['date'] or ''}}" size="7" class="form-control" placeholder="日期">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn" onclick="$('#inputDate').val('');$(this).closest('form').submit();"><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+                        <button  onclick="return changeDay(1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                        <span style="padding-left: 30px;">类型</span>
+                        <select name="type" class="form-control" onchange="$(this).closest('form').submit();">
                             <option value="">不限</option>
                             <option value="1" @if(isset($params['type']) && $params['type'] == '1') selected @endif>消费</option>
                             <option value="2" @if(isset($params['type']) && $params['type'] == '2') selected @endif>充值</option>
                         </select>
-                        <button type="submit" class="btn btn-primary">搜索</button>
                     </form>
                 </div>
                 <!-- /.box-header -->
@@ -158,6 +165,14 @@
             $('#chargeModal').modal();
         });
     });
+    function changeDay(d){
+        var date = '', nd = $('#inputDate').val();
+        if(nd) date = new Date(nd); else date = new Date();
+        date.setDate(date.getDate() + d);
+        var mt = date.getMonth()+1; if(mt < 10) mt = '0'+mt;
+        var dt = date.getDate(); if(dt < 10) dt = '0'+dt;
+        $('#inputDate').val(date.getFullYear()+'-'+mt+'-'+dt);
+    }
     function addMember(){$('#addModal').modal()}
 </script>
 @endsection
