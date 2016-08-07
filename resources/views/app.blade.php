@@ -91,7 +91,7 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li @if(in_array('records',$menuCtl))class="active"@endif><a href="/admin/members/records"><i class="fa fa-circle-o"></i> 消费记录</a></li>
+                        <li @if(in_array('records',$menuCtl))class="active"@endif><a href="/admin/members/records?type=1"><i class="fa fa-circle-o"></i> 消费记录</a></li>
                         <li @if(in_array('memberList',$menuCtl))class="active"@endif><a href="/admin/members"><i class="fa fa-circle-o"></i> 会员卡列表</a></li>
                         <li><a href="javascript:frozeMember();"><i class="fa fa-circle-o"></i> 挂失</a></li>
                     </ul>
