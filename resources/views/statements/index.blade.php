@@ -1,5 +1,9 @@
 @extends('app')
         <?php $menuCtl = ['statements','dayStatements'] ?>
+
+@section('pageCss')
+    <link rel="stylesheet" href="{{url('/lte/plugins/datepicker/datepicker3.css')}}">
+@endsection
 @section('mainContents')
         <!-- Main content -->
 <section class="content">
@@ -9,8 +13,10 @@
                 <div class="box-header">单日流水记录</h3>
                     <form id="searchForm" method="GET" class="form-inline pull-right">
                         日期
-                        <input type="text" name="date" size="9" value="{{$params['date'] or ''}}" onchange="startSearch();" class="form-control" placeholder="手机号">
-                        模式
+                        <button onclick="return changeDay(-1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                        <input id="inputDate" type="text" name="date" size="9" data-date-format="yyyy-mm-dd" value="{{$params['date'] or ''}}" onchange="startSearch();" class="form-control" placeholder="手机号">
+                        <button  onclick="return changeDay(1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                        <span style="padding-left: 30px;">模式</span>
                         <select name="mode" class="form-control" onchange="startSearch();">
                             <option value="view" @if(isset($params['mode']) && $params['mode'] == 'view') selected @endif>浏览模式</option>
                             <option value="record" @if(isset($params['mode']) && $params['mode'] == 'record') selected @endif>录入模式</option>
@@ -167,8 +173,11 @@
 
 @section('pageJs')
 <script src="{{url('/lte/dist/js/app.min.js')}}"></script>
+<script src="{{url('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script src="{{url('/lte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
 <script>
     $(function () {
+        $('#inputDate').datepicker({language: 'zh-CN'});
         var tr = '',cls = '';
         $("#statementsTable").on('click','.copyBtn,.editBtn',function(){
             cls = $(this).attr('class');
@@ -201,6 +210,14 @@
             });
         });
     });
+    function changeDay(d){
+        var date = '', nd = $('#inputDate').val();
+        if(nd) date = new Date(nd); else date = new Date();
+        date.setDate(date.getDate() + d);
+        var mt = date.getMonth()+1; if(mt < 10) mt = '0'+mt;
+        var dt = date.getDate(); if(dt < 10) dt = '0'+dt;
+        $('#inputDate').val(date.getFullYear()+'-'+mt+'-'+dt);
+    }
     function addStatement(){
         $('#actionName').text('新增');
         $('#addModal').modal();

@@ -1,6 +1,9 @@
 @extends('app')
         <?php $menuCtl = ['memberManage','records'] ?>
 
+@section('pageCss')
+    <link rel="stylesheet" href="{{url('/lte/plugins/datepicker/datepicker3.css')}}">
+    @endsection
 @section('mainContents')
         <!-- Main content -->
 <section class="content">
@@ -13,7 +16,7 @@
                         日期
                         <button onclick="return changeDay(-1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span></button>
                         <div class="input-group">
-                            <input id="inputDate" type="text" name="date" value="{{$params['date'] or ''}}" size="7" class="form-control" placeholder="日期">
+                            <input id="inputDate" type="text" name="date" data-date-format="yyyy-mm-dd" value="{{$params['date'] or ''}}" size="7" class="form-control" placeholder="日期">
                             <div class="input-group-btn">
                                 <button type="button" class="btn" onclick="$('#inputDate').val('');$(this).closest('form').submit();"><span class="glyphicon glyphicon-remove"></span></button>
                             </div>
@@ -155,8 +158,11 @@
 
 @section('pageJs')
 <script src="{{url('/lte/dist/js/app.min.js')}}"></script>
+<script src="{{url('/lte/plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+<script src="{{url('/lte/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js')}}"></script>
 <script>
     $(function(){
+        $('#inputDate').datepicker({language: 'zh-CN'});
         var tr = '';
         $('.chargeBtn').click(function(){
             tr = $(this).closest('tr');

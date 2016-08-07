@@ -41,22 +41,20 @@ class StatementsController extends Controller
         if(!in_array($mode,['view','record'])){
             $mode = 'view';
         }
-        $last = DB::table('statements')->orderBy('service_time','DESC')->first();
-        if($last){
+        $date = $request->get('date');
+        if(!$date){
+            $last = DB::table('statements')->orderBy('service_time','DESC')->first();
             $date = substr($last->service_time,0,10);
-            $start = $date.' 10:00';
-            $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
-            $query = DB::table('statements')->where('service_time','>=',$start)->where('service_time','<=',$end);
-            if($mode == 'record'){
-                $statements = $query->orderBy('service_time','DESC')->limit(8)->get();
-            }else{
-                $statements = $query->get();
-            }
-//            $statements = $statements->keyBy('service_time');
-//            sort($statements);
         }else{
-            $date = Date('Y-m-d');
-            $statements = [];
+            $date = date('Y-m-d',strtotime($date));
+        }
+        $start = $date.' 10:00';
+        $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
+        $query = DB::table('statements')->where('service_time','>=',$start)->where('service_time','<=',$end);
+        if($mode == 'record'){
+            $statements = $query->orderBy('service_time','DESC')->limit(8)->get();
+        }else{
+            $statements = $query->get();
         }
         $params = compact('mode','date');
         $techs  =  DB::table('users')->where('role','技师')->lists('tech_num');

@@ -19,7 +19,7 @@
     <header class="main-header">
         <a href="{{url('/lte/index2.html')}}" class="logo">
             <span class="logo-mini"><b>J</b>XX</span>
-            <span class="logo-lg"><b>金喜轩</b>管理系统</span>
+            <span class="logo-lg"><b>金禧轩</b>管理系统</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
