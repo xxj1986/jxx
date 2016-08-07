@@ -219,6 +219,7 @@
         $('#inputDate').val(date.getFullYear()+'-'+mt+'-'+dt);
     }
     function addStatement(){
+        $('#postForm').attr('action','/admin/statements');
         $('#actionName').text('新增');
         $('#addModal').modal();
     }
