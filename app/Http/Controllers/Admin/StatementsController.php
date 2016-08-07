@@ -41,8 +41,12 @@ class StatementsController extends Controller
         if(!in_array($mode,['view','record'])){
             $mode = 'view';
         }
-        $date = date('Y-m-d',strtotime($request->get('date')));
-
+        $date = $request->get('date');
+        if(!$date){
+            $date = date('Y-m-d');
+        }else{
+            $date = date('Y-m-d',strtotime($date));
+        }
         $start = $date.' 10:00';
         $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
         $query = DB::table('statements')->where('service_time','>=',$start)->where('service_time','<=',$end);
