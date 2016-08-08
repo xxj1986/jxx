@@ -56,7 +56,7 @@ class StatementsController extends Controller
             $statements = $query->get();
         }
         $params = compact('mode','date');
-        $techs  =  DB::table('users')->where('role','技师')->lists('tech_num');
+        $techs  =  DB::table('users')->where('role','技师')->orderBy('tech_num','ASC')->lists('tech_num');
 
         return view('statements.index',compact('params','statements','techs'));
     }
