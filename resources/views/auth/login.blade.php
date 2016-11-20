@@ -6,7 +6,7 @@
 @section('mainContents')
 <div class="login-box">
     <div class="login-logo">
-        <a href="#"><b>金禧轩</b>管理系统</a>
+        <a href="#"><b>温雅阁</b>管理系统</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">

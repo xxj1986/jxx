@@ -115,11 +115,14 @@ class MembersController extends Controller
             'created_at' => date('Y-m-d H:i:s')
         ];
         if($type == 1){
-            if($oneInfo->balance < $money) return back()->with('message',"账户余额【{$oneInfo->balance}】不足抵扣消费金额【$money】");
+            if($oneInfo->balance < $money) return back()->with('message',"账户余额【{$oneInfo->balance}】不足抵扣消费金额【 $money 】");
             $data['consumed_total'] = $oneInfo->consumed_total + $money;
             $data['balance'] = $record['balance'] = $oneInfo->balance - $money;
             $record['consumed'] = $money;
-            $record['remark'] = $remark ? $remark : '消费';;
+            $record['remark'] = $remark ? $remark : '消费';
+			
+			$stInfo = $this->getSettle($request->input());
+			
         }else{
             $data['recharged_total'] = $oneInfo->recharged_total + $money;
             $data['balance'] = $record['balance'] = $oneInfo->balance + $money;
@@ -128,6 +131,9 @@ class MembersController extends Controller
         }
         $res = DB::table('members')->where('id',$id)->update($data);
         if($res){
+			if(isset($stInfo)){
+				DB::table('statements')->insert($stInfo);
+			}
             DB::table('cash_records')->insert($record);
         }
         return redirect('/admin/members/'.$id)->with('message','操作成功');
@@ -179,5 +185,21 @@ class MembersController extends Controller
         }
         $records = $query->orderBy('id','DESC')->paginate();
         return view('members.records',compact('records','params'));
+    }
+	
+	//获取结算信息
+	public function getSettle($params){
+
+        $tech_num =  intval($params['tech_num']);
+        $price = floatval($params['money']);
+        if($tech_num <= 0 || $price <=0){
+            return back()->with('message','技师号和价格必填');
+        }
+        $extra = 0;
+        $proj_name = trim($params['remark']);
+        $service_time = date('Y-m-d H:i:s');
+        $remark = trim($params['remark']);
+        $data = compact('tech_num','price','proj_name','extra','service_time','remark');
+        return $data;
     }
 }

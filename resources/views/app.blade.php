@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>金禧轩</title>
+    <title>温雅阁</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{url('/lte/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url('/lte/awesome/css/font-awesome.min.css')}}">
@@ -18,8 +18,8 @@
 <div class="wrapper">
     <header class="main-header">
         <a href="{{url('/lte/index2.html')}}" class="logo">
-            <span class="logo-mini"><b>J</b>XX</span>
-            <span class="logo-lg"><b>金禧轩</b>管理系统</span>
+            <span class="logo-mini"><b>W</b>YG</span>
+            <span class="logo-lg"><b>温雅阁</b>管理系统</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -149,7 +149,7 @@
         <div class="pull-right hidden-xs">
             <b>软件版本</b> 0.1.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="#">金喜轩</a>.</strong> 版权所有
+        <strong>Copyright &copy; 2014-2016 <a href="#">温雅阁</a>.</strong> 版权所有
     </footer>
 
     @if(isset($ctlSidebar))

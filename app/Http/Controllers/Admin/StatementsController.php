@@ -47,8 +47,8 @@ class StatementsController extends Controller
         }else{
             $date = date('Y-m-d',strtotime($date));
         }
-        $start = $date.' 10:00';
-        $end = date('Y-m-d',strtotime($date)+86400+36000-1); //计算到第二天9点59分
+        $start = $date.' 10:00:00';
+        $end = date('Y-m-d H:i:s',strtotime($date)+86400+36000-1); //计算到第二天9点59分
         $query = DB::table('statements')->where('service_time','>=',$start)->where('service_time','<=',$end);
         if($mode == 'record'){
             $statements = $query->orderBy('service_time','DESC')->limit(8)->get();
