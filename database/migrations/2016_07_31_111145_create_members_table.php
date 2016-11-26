@@ -15,6 +15,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mobile',15)->uneque()->index();
+            $table->string('card_id',15)->uneque()->index();
             $table->string('card_num',15)->index();
             $table->decimal('real_total');
             $table->decimal('balance');

@@ -105,10 +105,10 @@
                     <span aria-hidden="true">×</span></button>
                 <h4 class="modal-title">会员挂失</h4>
             </div>
-            <form method="POST" action="/admin/members" class="form-horizontal">
+            <form id="frozenForm" method="POST" action="/admin/members" class="form-horizontal">
                 {!! csrf_field() !!}
                 <input type="hidden" name="_method" value="DELETE">
-
+                <input type="hidden" name="frozen" id="frozen" value="1">
                 <div class="modal-body">
                     <div class="box-body">
                         <div class="form-group">

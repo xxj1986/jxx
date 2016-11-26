@@ -19,8 +19,11 @@ class MembersController extends Controller
         if(isset($params['mobile']) && !empty($params['mobile'])){
             $query = $query->where('mobile','like','%'.$params['mobile'].'%');
         }
-        if(isset($params['froze']) && $params['froze'] != ''){
-            $query = $query->where('froze',intval($params['mobile']));
+        if(isset($params['cardID']) && !empty($params['cardID'])){
+            $query = $query->where('card_id','like','%'.$params['cardID']);
+        }
+        if(isset($params['frozen']) && $params['frozen'] != ''){
+            $query = $query->where('frozen',intval($params['frozen']));
         }
         $members = $query->orderBy('id','DESC')->paginate();
         return view('members.list',compact('params','members'));
@@ -43,14 +46,17 @@ class MembersController extends Controller
         if(!$mobile){
             return back()->with('message','请填写正确手机号');
         }
+        $real_total = floatval($request->get('real_money'));
         $balance = $recharged_total = floatval($request->get('money'));
         $card_num = trim($request->get('card_num'));
+        $card_id = trim($request->get('card_id'));
         $created_at = date('Y-m-d H:i:s');
-        $data = compact('mobile','balance','recharged_total','card_num','created_at');
+        $data = compact('real_total','mobile','balance','recharged_total','card_num','card_id','created_at');
         $res = DB::table('members')->insert($data);
         if($res){ // 记录账户余额变动
             $record = compact('mobile','balance');
             $record['recharged'] = $balance;
+            $record['real_money'] = $real_total;
             $record['remark'] = '新开会员充值';
             $record['created_at'] = date('Y-m-d H:i:s');
             DB::table('cash_records')->insert($record);
@@ -76,7 +82,7 @@ class MembersController extends Controller
             $query = $query->where('created_at','>=',$startTime);
         }
         if($endTime){
-            $query = $query->where('created_at','<',date('Y-m-d',strtotime($endTime)+86500));
+            $query = $query->where('created_at','<',date('Y-m-d',strtotime($endTime)+86400));
         }
         if($type == '1'){ // 消费
             $query = $query->where('consumed','>',0);
@@ -140,11 +146,18 @@ class MembersController extends Controller
     }
 
     /**
-     * 没有使用
+     * 挂失和解除挂失
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $frozen = intval($request->input('frozen')) ? 1 : 0;
+        $res = DB::table('members')->where('id',intval($id))->update(['frozen'=>$frozen]);
+        if($res){
+            return back()->with('message','操作成功');
+        }else{
+            return back()->with('message','操作失败');
+        }
+
     }
 
     public function checkMember($mobile){

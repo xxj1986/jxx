@@ -29,6 +29,7 @@
                         <tr>
                             <th>单号</th>
                             <th>账户余额</th>
+                            <th>充值本金</th>
                             <th>充值金额</th>
                             <th>消费金额</th>
                             <th>内容</th>
@@ -40,6 +41,7 @@
                         <tr>
                             <td>{{$one->id}}</td>
                             <td>{{$one->balance}}</td>
+                            <td>{{$one->real_money}}</td>
                             <td>{{$one->recharged}}</td>
                             <td>{{$one->consumed}}</td>
                             <td>{{$one->remark}}</td>

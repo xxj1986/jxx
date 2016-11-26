@@ -23,6 +23,8 @@
                             <!-- /btn-group -->
                         </div>
                         <button  onclick="return changeDay(1);" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                        <span style="padding-left: 30px;">卡ID</span>
+                        <input type="text" name="cardID" value="{{$params['cardID'] or ''}}" size="10" class="form-control" placeholder="请刷卡">
                         <span style="padding-left: 30px;">类型</span>
                         <select name="type" class="form-control" onchange="$(this).closest('form').submit();">
                             <option value="">不限</option>
@@ -38,6 +40,8 @@
                         <tr>
                             <th>单号</th>
                             <th>手机号</th>
+                            <th>卡ID</th>
+                            <th>充值本金</th>
                             <th>账户余额</th>
                             <th>充值金额</th>
                             <th>消费金额</th>
@@ -50,6 +54,8 @@
                             <tr>
                                 <td>{{$one->id}}</td>
                                 <td>{{$one->mobile}}</td>
+                                <td>{{$one->card_id}}</td>
+                                <td>{{$one->real_money}}</td>
                                 <td>{{$one->balance}}</td>
                                 <td>{{$one->recharged}}</td>
                                 <td>{{$one->consumed}}</td>

@@ -15,13 +15,14 @@ class CreateCashRecordsTable extends Migration
         Schema::create('cash_records', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mobile',15);
+            $table->string('card_id',15);
             $table->decimal('real_money');
             $table->decimal('balance');
             $table->decimal('recharged');
             $table->decimal('consumed');
             $table->string('remark', 60);
             $table->timestamp('created_at');
-            $table->index(['mobile','created_at']);
+            $table->index(['mobile','card_id','created_at']);
         });
     }
 
