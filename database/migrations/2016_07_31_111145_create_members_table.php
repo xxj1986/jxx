@@ -16,6 +16,7 @@ class CreateMembersTable extends Migration
             $table->increments('id');
             $table->string('mobile',15)->uneque()->index();
             $table->string('card_num',15)->index();
+            $table->decimal('real_total');
             $table->decimal('balance');
             $table->decimal('recharged_total');
             $table->decimal('consumed_total');

@@ -15,6 +15,7 @@ class CreateCashRecordsTable extends Migration
         Schema::create('cash_records', function (Blueprint $table) {
             $table->increments('id');
             $table->string('mobile',15);
+            $table->decimal('real_money');
             $table->decimal('balance');
             $table->decimal('recharged');
             $table->decimal('consumed');
